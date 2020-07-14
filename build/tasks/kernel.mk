@@ -250,11 +250,11 @@ $(KERNEL_CONFIG): $(KERNEL_DEFCONFIG_SRC) $(KERNEL_ADDITIONAL_CONFIG_OUT)
 
 $(TARGET_PREBUILT_INT_KERNEL): $(KERNEL_CONFIG) $(DEPMOD)
 	@echo "Building Kernel"
-	$(call make-kernel-target,$(BOARD_KERNEL_IMAGE_NAME))
 	$(hide) if grep -q '^CONFIG_OF=y' $(KERNEL_CONFIG); then \
 			echo "Building DTBs"; \
 			$(call make-kernel-target,dtbs); \
 		fi
+	$(call make-kernel-target,$(BOARD_KERNEL_IMAGE_NAME))
 	$(hide) if grep -q '=m' $(KERNEL_CONFIG); then \
 			echo "Building Kernel Modules"; \
 			$(call make-kernel-target,modules) || exit "$$?"; \
